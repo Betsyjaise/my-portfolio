@@ -7,7 +7,7 @@ const Hero = () => {
                 {/* Profile Image */}
                 <div className="flex justify-center w-full">
                     <img
-                        src="/assets/images/profile.png"
+                        src="/profile.png"
                         alt="Betsy Baby"
                         className="w-36 h-36 rounded-full object-cover mb-6 shadow-lg"
                     />
