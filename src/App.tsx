@@ -10,7 +10,6 @@ import Projects from "./components/Projects";
 import Skills from "./components/Skills";
 
 import { getInitialTheme, applyTheme } from "./utils/theme";
-import FallingStars from "./components/FallingStars";
 import SpaceBackground from "./components/SpaceBackground/SpaceBackground";
 
 function App() {
