@@ -1,1 +1,8 @@
 @import "tailwindcss";
+
+/* Force class-based dark mode */
+@custom-variant dark (&:where(.dark, .dark *));
+
+body {
+    font-family: 'Poppins', sans-serif;
+}

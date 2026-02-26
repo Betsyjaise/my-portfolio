@@ -1,10 +1,24 @@
 import { useEffect, useState } from "react";
+import ThemeToggle from "./ThemeToggle";
 
-const Navbar = () => {
+interface NavbarProps {
+    theme: "light" | "dark";
+    toggleTheme: () => void;
+}
+
+const navLinks = [
+    { id: "home", label: "Home" },
+    { id: "about", label: "About" },
+    { id: "skills", label: "Skills" },
+    { id: "projects", label: "Projects" },
+    { id: "contact", label: "Contact" },
+];
+
+const Navbar = ({ theme, toggleTheme }: NavbarProps) => {
     const [activeSection, setActiveSection] = useState("home");
     const [menuOpen, setMenuOpen] = useState(false);
 
-    // Active section highlight
+    // Highlight active section on scroll
     useEffect(() => {
         const sections = document.querySelectorAll("section");
 
@@ -20,38 +34,51 @@ const Navbar = () => {
         );
 
         sections.forEach((section) => observer.observe(section));
-
-        return () => {
-            sections.forEach((section) => observer.unobserve(section));
-        };
+        return () => observer.disconnect();
     }, []);
 
+    // Active link styles (FIXED)
     const linkStyle = (section: string) =>
         activeSection === section
-            ? "text-blue-600 font-semibold border-b-2 border-blue-600 pb-1"
-            : "text-gray-700 hover:text-blue-600";
+            ? "font-semibold border-b-2 border-blue-500 pb-1 text-gray-900 dark:text-white"
+            : "text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition";
 
     const handleClick = () => setMenuOpen(false);
 
     return (
-        <nav className="sticky top-0 z-50 bg-white shadow px-6 py-4">
+        <nav
+            className="
+      sticky top-0 z-50
+      bg-white/80 dark:bg-gray-950/90
+      backdrop-blur-lg
+      py-4 px-6
+      border-b border-gray-200 dark:border-white/10
+      shadow-lg
+      transition-colors duration-300
+    "
+        >
             <div className="max-w-6xl mx-auto flex justify-between items-center">
-
                 {/* Logo */}
-                <h1 className="text-xl font-bold">Betsy Baby</h1>
+                <h1 className="text-xl font-bold text-gray-900 dark:text-white">
+                    Betsy Baby
+                </h1>
 
                 {/* Desktop Menu */}
-                <div className="hidden md:flex gap-6">
-                    <a href="#home" className={linkStyle("home")}>Home</a>
-                    <a href="#about" className={linkStyle("about")}>About</a>
-                    <a href="#skills" className={linkStyle("skills")}>Skills</a>
-                    <a href="#projects" className={linkStyle("projects")}>Projects</a>
-                    <a href="#contact" className={linkStyle("contact")}>Contact</a>
+                <div className="hidden md:flex gap-8 items-center">
+                    {navLinks.map((link) => (
+                        <a key={link.id} href={`#${link.id}`} className={linkStyle(link.id)}>
+                            {link.label}
+                        </a>
+                    ))}
+
+                    <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
                 </div>
 
-                {/* Mobile Menu Button */}
+                {/* Mobile Menu Button (FIXED COLOR) */}
                 <button
-                    className="md:hidden text-2xl"
+                    aria-label="Toggle Menu"
+                    aria-expanded={menuOpen}
+                    className="md:hidden text-2xl text-gray-900 dark:text-white"
                     onClick={() => setMenuOpen(!menuOpen)}
                 >
                     ☰
@@ -59,31 +86,23 @@ const Navbar = () => {
             </div>
 
             {/* Mobile Dropdown Menu */}
-            {menuOpen && (
-                <div className="md:hidden mt-4 flex flex-col gap-4 px-6 pb-4 border-t">
-
-                    <a href="#home" onClick={handleClick} className={linkStyle("home")}>
-                        Home
-                    </a>
-
-                    <a href="#about" onClick={handleClick} className={linkStyle("about")}>
-                        About
-                    </a>
-
-                    <a href="#skills" onClick={handleClick} className={linkStyle("skills")}>
-                        Skills
-                    </a>
-
-                    <a href="#projects" onClick={handleClick} className={linkStyle("projects")}>
-                        Projects
-                    </a>
-
-                    <a href="#contact" onClick={handleClick} className={linkStyle("contact")}>
-                        Contact
-                    </a>
-
+            <div
+                className={`md:hidden overflow-hidden transition-all duration-300 ${menuOpen ? "max-h-96 mt-4" : "max-h-0"
+                    }`}
+            >
+                <div className="flex flex-col gap-4 px-6 pb-4 border-t border-gray-200 dark:border-white/10">
+                    {navLinks.map((link) => (
+                        <a
+                            key={link.id}
+                            href={`#${link.id}`}
+                            onClick={handleClick}
+                            className={linkStyle(link.id)}
+                        >
+                            {link.label}
+                        </a>
+                    ))}
                 </div>
-            )}
+            </div>
         </nav>
     );
 };
