@@ -101,6 +101,7 @@ const Navbar = ({ theme, toggleTheme }: NavbarProps) => {
                             {link.label}
                         </a>
                     ))}
+                    <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
                 </div>
             </div>
         </nav>

@@ -10,6 +10,8 @@ import Projects from "./components/Projects";
 import Skills from "./components/Skills";
 
 import { getInitialTheme, applyTheme } from "./utils/theme";
+import FallingStars from "./components/FallingStars";
+import SpaceBackground from "./components/SpaceBackground/SpaceBackground";
 
 function App() {
   // theme state
@@ -27,17 +29,26 @@ function App() {
 
   return (
     <>
-      <Navbar theme={theme} toggleTheme={toggleTheme} />
+      {/* Dark background base layer */}
+      <div className="fixed inset-0 bg-gray-100 dark:bg-gray-900 transition-colors duration-300 z-0" />
 
-      <main className="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-100 transition-colors duration-300">
-        <Hero />
-        <About />
-        <Skills />
-        <Projects />
-        <Contact />
-      </main>
+      {/* Stars */}
+      {theme === "dark" && <SpaceBackground key={theme} />}
 
-      <Footer />
+      {/* Content */}
+      <div className="relative z-10 text-gray-800 dark:text-gray-100">
+        <Navbar theme={theme} toggleTheme={toggleTheme} />
+
+        <main>
+          <Hero />
+          <About />
+          <Skills />
+          <Projects />
+          <Contact />
+        </main>
+
+        <Footer />
+      </div>
     </>
   );
 }
