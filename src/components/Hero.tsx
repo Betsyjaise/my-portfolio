@@ -1,22 +1,32 @@
 const Hero = () => {
     return (
         <section id="home" className="min-h-screen flex items-center justify-center bg-gray-50 px-6 scroll-mt-20 py-20">
+
             <div className="text-center max-w-3xl">
 
+                {/* Profile Image */}
+                <div className="flex justify-center w-full">
+                    <img
+                        src="/assets/images/profile.png"
+                        alt="Betsy Baby"
+                        className="w-36 h-36 rounded-full object-cover mb-6 shadow-lg"
+                    />
+                </div>
+
                 {/* Name */}
-                <h1 className="text-4xl md:text-6xl font-bold text-gray-900">
-                    Hi, I'm <span className="text-blue-600">Betzy Baby</span>
+                <h1 className="text-5xl md:text-6xl font-bold text-gray-900">
+                    Hi, I'm <span className="text-blue-600">Betsy Baby</span>
                 </h1>
 
                 {/* Title */}
-                <h2 className="mt-4 text-xl md:text-2xl text-gray-700">
+                <h2 className="mt-4 text-2xl md:text-2xl text-gray-700">
                     Senior Angular Developer | Frontend Specialist
                 </h2>
 
                 {/* Short intro */}
                 <p className="mt-6 text-gray-600 leading-relaxed">
-                    I build scalable frontend applications using Angular, React, and TypeScript.
-                    Passionate about creating performant user experiences and solving real-world problems.
+                    Senior Angular Developer with 6+ years experience building scalable,
+                    high-performance frontend applications using Angular, React, and modern web technologies.
                 </p>
 
                 {/* Buttons */}

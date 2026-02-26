@@ -5,7 +5,7 @@ const Footer = () => {
 
                 {/* Left */}
                 <p className="text-sm">
-                    © {new Date().getFullYear()} Betzy Baby. All rights reserved.
+                    © {new Date().getFullYear()} Betsy Baby. All rights reserved.
                 </p>
 
                 {/* Right - Social Links */}
