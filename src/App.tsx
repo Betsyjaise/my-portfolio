@@ -1,16 +1,17 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, lazy, Suspense } from "react";
 import "./App.css";
 
-import About from "./components/About";
-import Contact from "./components/Contact";
-import Footer from "./components/Footer";
-import Hero from "./components/Hero";
 import Navbar from "./components/Navbar";
-import Projects from "./components/Projects";
-import Skills from "./components/Skills";
+import Hero from "./components/Hero";
+import Footer from "./components/Footer";
+
+const About = lazy(() => import("./components/About"));
+const Contact = lazy(() => import("./components/Contact"));
+const Projects = lazy(() => import("./components/Projects"));
+const Skills = lazy(() => import("./components/Skills"));
 
 import { getInitialTheme, applyTheme } from "./utils/theme";
-import SpaceBackground from "./components/SpaceBackground/SpaceBackground";
+const SpaceBackground = lazy(() => import("./components/SpaceBackground/SpaceBackground"));
 
 function App() {
   // theme state
@@ -32,18 +33,25 @@ function App() {
       <div className="fixed inset-0 bg-gray-100 dark:bg-gray-900 transition-colors duration-300 z-0" />
 
       {/* Stars */}
-      {theme === "dark" && <SpaceBackground key={theme} />}
-
+      {theme === "dark" && (
+        <Suspense fallback={null}>
+          <SpaceBackground key={theme} />
+        </Suspense>
+      )}
       {/* Content */}
       <div className="relative z-10 text-gray-800 dark:text-gray-100">
         <Navbar theme={theme} toggleTheme={toggleTheme} />
 
         <main>
+          {/* Above the fold → load immediately */}
           <Hero />
-          <About />
-          <Skills />
-          <Projects />
-          <Contact />
+          {/* Below the fold → lazy load */}
+          <Suspense fallback={null}>
+            <About />
+            <Skills />
+            <Projects />
+            <Contact />
+          </Suspense>
         </main>
 
         <Footer />

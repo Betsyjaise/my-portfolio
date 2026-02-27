@@ -21,7 +21,7 @@ const Hero = () => {
                 {/* Profile Image */}
                 <div className="flex justify-center">
                     <img
-                        src="/profile.png"
+                        src="/profile.webp"
                         alt="Betsy Baby"
                         className="
               w-40 h-40
