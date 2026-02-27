@@ -22,6 +22,9 @@ const Hero = () => {
                 <div className="flex justify-center">
                     <img
                         src="/profile.webp"
+                        loading="eager"
+                        width={200}
+                        height={200}
                         alt="Betsy Baby"
                         className="
               w-40 h-40
